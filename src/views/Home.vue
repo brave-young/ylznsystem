@@ -173,17 +173,17 @@
 		padding: 0 20px;
 	}
 	.el-menu--horizontal>.el-menu-item:hover{
-		background-color: #5a6aa0;
+		background-color: #3c5d89;
 		color: #eee;
 	}
 	.el-menu--horizontal>.el-menu-item.is-active:hover{
-		background-color: #5a6aa0;
+		background-color: #3c5d89;
 	}
 	.el-menu--horizontal>.el-menu-item.is-active{
 		color: #eee;
 		border-bottom: none;
 	}
 	.el-menu--horizontal>.el-menu-item:not(.is-disabled):focus{
-		background-color: #5a6aa0;
+		background-color: #3c5d89;
 	}
 </style>

@@ -1,21 +1,22 @@
-<template >
-	<section style="background-image: url(../../static/bg2.png);background-size: 100% 100%;" class="full">
+<template>
+	<section class="full login-full">
 		<el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="login-container">
-		<h3 class="title">系统登录</h3>
-		<el-form-item prop="account">
-			<el-input type="text" v-model="ruleForm2.account" placeholder="账号"></el-input>
-		</el-form-item>
-		<el-form-item prop="checkPass">
-			<el-input type="password" v-model="ruleForm2.checkPass" placeholder="密码"></el-input>
-		</el-form-item>
-		<el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
-		<el-form-item style="width:100%;">
-			<el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
-		</el-form-item>
-	</el-form>
+			<!--<h3 class="title">系统登录</h3>-->
+			<el-form-item prop="account">
+				<el-input type="text" v-model="ruleForm2.account" placeholder="账号"></el-input>
+			</el-form-item>
+			<el-form-item prop="checkPass">
+				<el-input type="password" v-model="ruleForm2.checkPass" placeholder="密码"></el-input>
+			</el-form-item>
+			<el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
+			<!--<el-form-item style="width:100%;">-->
+			<el-button type="primary" style="width:80px; margin-left: 170px;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+			<!--</el-form-item>-->
+		</el-form>
+		<!--<div class="login-line"></div>-->
+		<p class="Internet-content-provider">浙江应领智能科技有限公司@xxxxxxxxxxxxxxx</p>
 	</section>
-	
-	
+
 </template>
 
 <script>
@@ -79,15 +80,17 @@
 					alert('请补全账号密码')
 				} else {
 					this.logining = true;
-					
+
 					this.tokenencryption()
 					this.$http.post(this.base + '/yw/admin/login', JSON.stringify({
-							loginName: this.ruleForm2.account,
-							passWord: this.ruleForm2.checkPass,
-							encryptSign: String(this.$md5(this.nowtimestamp+this.appkey).toUpperCase()),//加密后的字符串
-							timeStamp: this.nowtimestamp,//时间戳
-							sourceForm:'2'//请求来源 1 app 2 web
-					}), {emulateJSON: true}).then(res => {
+						loginName: this.ruleForm2.account,
+						passWord: this.ruleForm2.checkPass,
+						encryptSign: String(this.$md5(this.nowtimestamp + this.appkey).toUpperCase()), //加密后的字符串
+						timeStamp: this.nowtimestamp, //时间戳
+						sourceForm: '2' //请求来源 1 app 2 web
+					}), {
+						emulateJSON: true
+					}).then(res => {
 						this.logining = false;
 						if(res.body.type !== '0') {
 							this.$message({
@@ -133,19 +136,34 @@
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		background-clip: padding-box;
-		position: fixed;
+		position: absolute;
 		left: 0;
 		right: 0;
-		top: 0;
+		top: 150px;
 		bottom: 0;
 		margin: auto;
 		width: 350px;
-		height: 300px;
-		padding: 35px 35px 15px 35px;
-		background: #324357;
-		border: 1px solid #eaeaea;
-		box-shadow: 0 0 25px #cac6c6;
-		opacity: 0.9;
+		height: 200px;
+		/*padding: 35px 35px 15px 35px;*/
+		/*background: #324357;*/
+		/*border: 1px solid #eaeaea;*/
+		/*box-shadow: 0 0 25px #cac6c6;*/
+		/*opacity: 0.9;*/
+	}
+	
+	.login-full {
+		background: url(../../static/sss.png) no-repeat center center;
+		background-position: 50% 32%;
+		position: relative;
+		background-color: #e4e7ed;
+	}
+	
+	.login-line {
+		width: 100%;
+		height: 80px;
+		background-color: #3c5d89;
+		position: absolute;
+		bottom: 10%;
 	}
 	
 	.remember {
@@ -159,4 +177,12 @@
 		color: #fff;
 	}
 	
+	.Internet-content-provider {
+		position: absolute;
+		bottom: 0;
+		text-align: center;
+		width: 100%;
+		height: 70px;
+		line-height: 70px;
+	}
 </style>

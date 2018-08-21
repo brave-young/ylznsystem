@@ -67,7 +67,8 @@ a{
 }
 .full{
 	height: 100%;
-	 overflow: hidden;
+	overflow: hidden;
+	min-height: 768px;
 }
 .el-table-owner{
 	width: 100%;
@@ -76,16 +77,16 @@ a{
 	height: 85%;
 }
 .el-button--primary{
-	border: 1px solid #5490e6;
-	background-color: #5490e6;
+	border: 1px solid #3c5d89;
+	background-color: #3c5d89;
 }
 .el-button--primary:hover{
-	border: 1px solid #5490e6;
-	background-color: #5490e6;
+	border: 1px solid #3c5d89;
+	background-color: #3c5d89;
 }
 .el-button--primary:focus{
-	border: 1px solid #5490e6;
-	background-color: #5490e6;
+	border: 1px solid #3c5d89;
+	background-color: #3c5d89;
 }
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px white inset; 
@@ -96,8 +97,11 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
     box-shadow:0 0 5px rgba(44,151,22,0.2);
 }
 .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
-    background-color: #5490e6;
-    border-color: #5490e6;
+    background-color: #3c5d89;
+    border-color: #3c5d89;
+}
+.el-checkbox__input.is-checked+.el-checkbox__label{
+	color: #3c5d89;
 }
 .el-table th, .el-table tr{
 	color: #eee;
