@@ -21,7 +21,7 @@
 			</el-table-column>
 		</el-table>
 		<div class="">
-			<el-pagination layout="prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="11" :total="total" style="width: 220px;color: #eee;margin-top: 20px;">
+			<el-pagination layout="prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="11" :total="total" style="width: 200px;color: #eee;margin-top: 20px;">
 			</el-pagination>
 		</div>
 			

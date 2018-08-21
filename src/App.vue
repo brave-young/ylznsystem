@@ -122,4 +122,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 .el-table--border::after, .el-table--group::after, .el-table::before{
 	background-color:#878787;
 }
+.el-pagination__jump{
+	margin-left: 13px;
+}
 </style>
