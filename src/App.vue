@@ -109,7 +109,8 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 	cursor: pointer;
 }
 .el-table--enable-row-hover .el-table__body tr:hover>td {
-    background-color: rgba(0,0,0,0.1);
+    /*background-color: rgba(0,0,0,0.1);*/
+    background-color: #3c5d89;
 }
 .el-table--border, .el-table--group{
 	border: 1px solid #EEEEEE; 
@@ -128,5 +129,13 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 }
 .el-pagination__jump{
 	margin-left: 13px;
+}
+.el-table__body tr.current-row>td{
+	background-color: #3c5d89;
+}
+.el-tabs--border-card>.el-tabs__content{
+	width: 100%;
+	height: 86%;
+	padding: 0;
 }
 </style>
