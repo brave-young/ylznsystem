@@ -72,7 +72,7 @@ a{
 }
 .el-table-owner{
 	width: 100%;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 12px;
 	height: 85%;
 }

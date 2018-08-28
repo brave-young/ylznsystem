@@ -34,7 +34,7 @@
 						<ul style="padding: 0;margin: 0;width: 220px;">
 							<li class="carsindex" v-for='(cars,index) in usercarlist' :class="{bgred:changed==index}" @click='handlemain(index)'>
 								<p style="padding-top: 5px;margin-top: 10px;">车架号 : {{cars.id}}</p>
-								<img v-bind:src="cars.isonline == 0?'./static/a3.png':'./static/a4.png'" />
+								<img v-bind:src="cars.isonline == 1?'./static/a4.png':'./static/a3.png'" />
 								<p>
 									<el-button size="mini" @click="unbind(index)" :disabled='open'>解除绑定</el-button>
 									<el-button size='mini' @click='handlemain(index)' :disabled='open'>实时数据</el-button>
@@ -65,11 +65,11 @@
 			</div>
 			<div class="carinfocard">
 				<el-tabs type="border-card" class='infocard' @tab-click='aaa'>
-					<el-tab-pane label="车身数据"style='height: 100%;width: 100%;'>
+					<el-tab-pane label="实时数据" style='height: 100%;width: 100%;'>
 						<div style="width: 24%;height: 100%;display: inline-block;vertical-align: top;">
 							<p class="detailwrap" style="margin-top:30px">
-								<span class="detailname">ACC</span>
-								<span class="detailinfo">{{this.acc}}</span>
+								<span class="detailname">电量</span>
+								<span class="detailinfo">{{this.amount_car}}</span>
 							</p>
 							<p class="detailwrap">
 								<span class="detailname">里程</span>
@@ -80,8 +80,8 @@
 								<span class="detailinfo">{{this.gears}}</span>
 							</p>
 							<p class="detailwrap">
-								<span class="detailname">故障(等级) </span>
-								<span class="detailinfo">{{this.mcu_Fault_Level}}</span>
+								<span class="detailname">ACC</span>
+								<span class="detailinfo">{{this.acc}}</span>
 							</p>
 							<p class="detailwrap">
 								<span class="detailname">加速踏板开度</span>
@@ -93,12 +93,243 @@
 							</p>
 						</div>
 						<div id="main" style="width: 50%;height: 98%;display: inline-block;border-radius: 30%;border: 2px solid #e4e4e4;"></div>
-						<div style="width: 24%;height: 100%;display: inline-block;">
-							
+						<div style="width: 24%;height: 100%;display: inline-block;vertical-align: top;">
+							<p class="detailwrap" style="margin-top:30px">
+								<span class="detailname">故障(等级) </span>
+								<span class="detailinfo">{{this.mcu_Fault_Level}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname">MCU工作状态</span>
+								<span class="detailinfo">{{this.mcu_Working_Status}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname">MCU温度</span>
+								<span class="detailinfo">{{this.MCU_t}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname">电机扭矩</span>
+								<span class="detailinfo">{{this.motor_Torque}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname">电机温度 </span>
+								<span class="detailinfo">{{this.motor_t}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname">电机输出功率</span>
+								<span class="detailinfo">{{this.Motor_Output}}</span>
+							</p>
 						</div>
 					</el-tab-pane>
-					<el-tab-pane label="里程信息" :lazy=true>
+					<el-tab-pane label="车身信息" :lazy=true style='height: 100%;'>
+						<div class="iconfontwrap" style="width: 24%;">
+							<p class="contitle">车灯状态</p>
+							<ul class="iconfontwrapa">
+								<!--车灯状态  15c145   bfbfbf-->
+									<li class="states">
+										<img v-bind:src="carlights[7]==1?'./static/近光灯on.png':'./static/近光灯.png'" />
+										<p>近光灯</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="carlights[6]==1?'./static/远光灯on.png':'./static/远光灯.png'" />
+										<p>远光灯</p>
+									</li>
 
+									<li class="states">
+										<img v-bind:src="carlights[4]==1?'./static/左on.png':'./static/左.png'" />
+										<p>左转灯</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="carlights[5]==1?'./static/右on.png':'./static/右.png'" />
+										<p>右转灯</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="carlights[3]==1?'./static/前雾灯on.png':'./static/前雾灯.png'" />
+										<p>前雾灯</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="carlights[2]==1?'./static/后雾灯on.png':'./static/后雾灯.png'" />
+										<p>后雾灯</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="carlights[1]==1?'./static/示廓灯on.png':'./static/示廓灯.png'" />
+										<p>示廓灯</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="carlights[0]==1?'./static/室内灯on.png':'./static/室内灯.png'" />
+										<p>顶灯</p>
+									</li>
+							</ul>
+							
+						</div>
+						<div class="iconfontwrap" style="width: 30%;">
+							<p class="contitle">车门状态</p>
+							<ul class="iconfontwrapa">
+								<li class="states">
+										<img v-bind:src="cardoors[7]==0?'./static/车门open.png':'./static/车门.png'" />
+										<p>左前门</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="cardoors[6]==0?'./static/车门open.png':'./static/车门.png'" />
+										<p>右前门</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="cardoors[5]==0?'./static/车门open.png':'./static/车门.png'" />
+										<p>左后门</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="cardoors[4]==0?'./static/车门open.png':'./static/车门.png'" />
+										<p>右后门</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="SafeStates[7]==0?'./static/车门open.png':'./static/车门.png'" />
+										<p>后备箱门</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="cardoors[3]==0?'./static/锁off.png':'./static/锁.png'" />
+										<p>左前门门锁</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="cardoors[2]==0?'./static/锁off.png':'./static/锁.png'" />
+										<p>右前门门锁</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="cardoors[1]==0?'./static/锁off.png':'./static/锁.png'" />
+										<p>左后门门锁</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="cardoors[0]==0?'./static/锁off.png':'./static/锁.png'" />
+										<p>右后门门锁</p>
+									</li>
+									<li class="states">
+										<img v-bind:src="SafeStates[6]==0?'./static/锁off.png':'./static/锁.png'" />
+										<p>后备箱门门锁</p>
+									</li>
+							</ul>
+							
+						</div>
+						<div class="iconfontwrap" style="width: 20%;">
+							<p class="contitle">指示灯状态</p>
+							<ul class="iconfontwrapa">
+								<li class="states1">
+								<img v-bind:src="SafeStates[4]==1?'./static/刹车on.png':'./static/刹车.png'" />
+								<p>手刹</p>
+							</li>
+							<li class="states1">
+								<img v-bind:src="SafeStates[3]==1?'./static/安全带on.png':'./static/安全带off.png'" />
+								<p>主驾驶安全带</p>
+							</li>
+							<li class="states1">
+								<img v-bind:src="SafeStates[2]==1?'./static/安全带on.png':'./static/安全带off.png'" />
+								<p>副驾驶安全带</p>
+							</li>
+							<li class="states1">
+								<img v-bind:src="SafeStates[5]==1?'./static/应急灯on.png':'./static/应急灯.png'" />
+								<p>应急灯</p>
+							</li>
+							<li class="states1">
+								<img v-bind:src="SafeStates[1]==1?'./static/危险on.png':'./static/危险.png'" />
+								<p>是否碰撞</p>
+							</li>
+							<li class="states1">
+								<img v-bind:src="SafeStates[0]==0?'./static/锁off.png':'./static/锁.png'" />
+								<p>玻璃升降锁</p>
+							</li>
+							</ul>			
+						</div>
+						<div style="width: 20%;height: 95%;display: inline-block;vertical-align: top;border: 1px solid #e4e4e4;margin-top: 10px;border-radius: 10px;">
+							<p class="detailwrap" style="margin-top:30px">
+								<span class="detailname detailname1">电机系统行车模式  </span>
+								<span class="detailinfo detailinfo1">{{this.Motor_System_Driving_Mode}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname detailname1">电机当前控制模式</span>
+								<span class="detailinfo detailinfo1">{{this.Motor_Current_Control_Mode}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname detailname1">电机高压接触器状态</span>
+								<span class="detailinfo detailinfo1">{{this.Motor_High_Voltage_Contactor_Status}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname detailname1">BMS高压输出请求信号</span>
+								<span class="detailinfo detailinfo1">{{this.bms_High_Voltage_Output_Request_Signal}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname detailname1">高压互锁（HVIL）状态  </span>
+								<span class="detailinfo detailinfo1">{{this.hvil_Status}}</span>
+							</p>
+							<p class="detailwrap">
+								<span class="detailname detailname1">故障(等级)</span>
+								<span class="detailinfo detailinfo1">{{this.mcu_Fault_Level}}</span>
+							</p>
+						</div>
+					</el-tab-pane>
+					<el-tab-pane label="车身信号" :lazy=true style='height: 100%;'>
+						<div class="signalwrap">
+							<p class="windowline">
+									<span class="windowrowa">左前窗开关（司机侧） :</span>
+									<span class="windowrowb">{{this.driverleft}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">右前窗开关（司机侧） :</span>
+									<span class="windowrowb">{{this.driverright}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">左后窗开关（司机侧） :</span>
+									<span class="windowrowb">{{this.driverleftrear}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">右后窗开关（司机侧） :</span>
+									<span class="windowrowb">{{this.driverrightrear}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">右前窗开关（乘员侧） :</span>
+									<span class="windowrowb">{{this.passengersright}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">左后窗开关（乘员侧） :</span>
+									<span class="windowrowb">{{this.passengersleftrear}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">右后窗开关（乘员侧） :</span>
+									<span class="windowrowb">{{this.passengersrightrear}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">天窗开关 :</span>
+									<span class="windowrowb">{{this.skylight}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">前雨刮HI开关 :</span>
+									<span class="windowrowb">{{this.wiperhi}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">前雨刮LOW开关 :</span>
+									<span class="windowrowb">{{this.wiperlow}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">前雨刮INT开关 :</span>
+									<span class="windowrowb">{{this.wiperint}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">前雨刮洗涤开关 :</span>
+									<span class="windowrowb">{{this.wiperwash}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">后雨刮开关 :</span>
+									<span class="windowrowb">{{this.wiperrear}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">后雨刮洗涤开关 :</span>
+									<span class="windowrowb">{{this.wiperrearwash}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">加速有效信号 :</span>
+									<span class="windowrowb">{{this.Accelerated_Effective_Signal}}</span>
+								</p>
+								<p class="windowline">
+									<span class="windowrowa">制动有效信号 :</span>
+									<span class="windowrowb">{{this.Brake_Signal}}</span>
+								</p>
+						</div>
 					</el-tab-pane>
 					<el-tab-pane label="电量统计" style='height: 100%;width: 100%;' :lazy=true>
 						<el-row class='carline-wrap'>
@@ -254,17 +485,17 @@
 				wiperrearwash: '',
 				acc: '',
 				Motor_Speed: '',
-				nMotor_Speed:0,
+				nMotor_Speed: 0,
 				motor_Torque: '',
 				Motor_Output: "",
 				MCU_Voltage: "",
-				nMCU_Voltage:0,
+				nMCU_Voltage: 0,
 				MCU_Current: '',
-				nMCU_Current:0,
+				nMCU_Current: 0,
 				MCU_t: '',
 				motor_t: '',
 				speed_car: '',
-				nspeed_car:0,
+				nspeed_car: 0,
 				Total_Mileage: '',
 				amount_car: '',
 				//折线图
@@ -306,10 +537,10 @@
 		},
 		methods: {
 			aaa(index) {
-				if(index.index == 2) {
+				if(index.index == 3) {
 					this.hour1();
 				}
-				if(index.index == 3) {
+				if(index.index == 4) {
 					this.searchfirst()
 				}
 			},
@@ -549,7 +780,7 @@
 						if(this.carinstructs[8001]) {
 							this.start(this.carinstructs[8001])
 							this.nspeed_car = this.speed_car
-							this.nMotor_Speed = this.Motor_Speed*0.001
+							this.nMotor_Speed = (this.Motor_Speed / 1000).toFixed(3)
 							this.nMCU_Voltage = this.MCU_Voltage
 							this.nMCU_Current = this.MCU_Current
 							this.drawInstrument()
@@ -832,7 +1063,7 @@
 				this.hvil_Status = this.hvilStatus()
 				this.gears = this.gear()
 				this.Motor_System_Driving_Mode = this.MotorSystemDrivingMode()
-				this.Motor_System_Driving_Mode = this.MotorCurrentControlMode()
+				this.Motor_Current_Control_Mode = this.MotorCurrentControlMode()
 				this.Pedal_Speed = this.PedalSpeed()
 				this.Accelerated_Effective_Signal = this.AcceleratedEffectiveSignal()
 				this.Brake_Pedal_Opening = this.BrakePedalOpening()
@@ -876,7 +1107,7 @@
 			},
 			//查看车辆详情
 			handlemain(index) {
-				this.nspeed_car=0
+				this.nspeed_car = 0
 				this.changed = index
 				this.carid = ""
 				this.carisonline = ""
@@ -896,7 +1127,7 @@
 				this.hvil_Status = ''
 				this.gears = ''
 				this.Motor_System_Driving_Mode = ''
-				this.Motor_System_Driving_Mode = ''
+				this.Motor_Current_Control_Mode = ''
 				this.Pedal_Speed = ''
 				this.Accelerated_Effective_Signal = ''
 				this.Brake_Pedal_Opening = ''
@@ -973,7 +1204,7 @@
 
 				//绘制里程
 				//绘制仪表
-				
+
 			},
 			//根据时间绘制折线
 			hour1() {
@@ -1309,7 +1540,8 @@
 							min: 0,
 							max: 220,
 							splitNumber: 11,
-							radius: '70%',
+							center: ['53%', '55%'], // 默认全局居中
+							radius: '80%',
 							axisLine: { // 坐标轴线
 								lineStyle: { // 属性lineStyle控制线条样式
 									width: 10
@@ -1345,12 +1577,12 @@
 							},
 							detail: {
 								// 其余属性默认使用全局文本样式，详见TEXTSTYLE
-//								formatter: function(value) {
-//									value = (value + '').split('.');
-//									value.length < 2 && (value.push('00'));
-//									return('00' + value[0]).slice(-2) +
-//										'.' + (value[1] + '00').slice(0, 2);
-//								},
+								//								formatter: function(value) {
+								//									value = (value + '').split('.');
+								//									value.length < 2 && (value.push('00'));
+								//									return('00' + value[0]).slice(-2) +
+								//										'.' + (value[1] + '00').slice(0, 2);
+								//								},
 								fontWeight: 'bolder',
 								borderRadius: 3,
 								backgroundColor: '#444',
@@ -1367,7 +1599,7 @@
 								textShadowOffsetX: 0,
 								textShadowOffsetY: 0,
 								fontFamily: 'Arial',
-								fontSize:'18',
+								fontSize: '18',
 								width: 45,
 								color: '#eee',
 								rich: {}
@@ -1381,11 +1613,11 @@
 							name: '转速',
 							type: 'gauge',
 							center: ['21%', '55%'], // 默认全局居中
-							radius: '50%',
+							radius: '60%',
 							min: 0,
 							max: 10,
-							endAngle: 45,
-							splitNumber: 10,
+							//							endAngle: 45,
+							//							splitNumber: 10,
 							axisLine: { // 坐标轴线
 								lineStyle: { // 属性lineStyle控制线条样式
 									width: 8
@@ -1411,7 +1643,7 @@
 							},
 							detail: {
 								// 其余属性默认使用全局文本样式，详见TEXTSTYLE
-//								fontWeight: 'bolder'
+								//								fontWeight: 'bolder'
 							},
 							data: [{
 								value: this.nMotor_Speed,
@@ -1421,13 +1653,13 @@
 						{
 							name: 'mcu电压',
 							type: 'gauge',
-							center: ['77%', '50%'], // 默认全局居中
-							radius: '50%',
+							center: ['82%', '55%'], // 默认全局居中
+							radius: '55%',
 							min: 0,
 							max: 120,
-							startAngle: 135,
-							endAngle: 45,
-							splitNumber: 2,
+							startAngle: 150,
+							endAngle: 30,
+							splitNumber: 4,
 							axisLine: { // 坐标轴线
 								lineStyle: { // 属性lineStyle控制线条样式
 									width: 8
@@ -1441,16 +1673,16 @@
 								}
 							},
 							axisLabel: {
-//								formatter: function(v) {
-//									switch(v + '') {
-//										case '0':
-//											return 'E';
-//										case '1':
-//											return 'Gas';
-//										case '2':
-//											return 'F';
-//									}
-//								}
+								//								formatter: function(v) {
+								//									switch(v + '') {
+								//										case '0':
+								//											return 'E';
+								//										case '1':
+								//											return 'Gas';
+								//										case '2':
+								//											return 'F';
+								//									}
+								//								}
 							},
 							splitLine: { // 分隔线
 								length: 15, // 属性length控制线长
@@ -1476,13 +1708,13 @@
 						{
 							name: 'mcu电流',
 							type: 'gauge',
-							center: ['77%', '50%'], // 默认全局居中
-							radius: '50%',
+							center: ['82%', '55%'], // 默认全局居中
+							radius: '55%',
 							min: 0,
 							max: 120,
-							startAngle: 315,
-							endAngle: 225,
-							splitNumber: 2,
+							startAngle: 330,
+							endAngle: 210,
+							splitNumber: 4,
 							axisLine: { // 坐标轴线
 								lineStyle: { // 属性lineStyle控制线条样式
 									width: 8
@@ -1496,16 +1728,16 @@
 								}
 							},
 							axisLabel: {
-//								formatter: function(v) {
-//									switch(v + '') {
-//										case '0':
-//											return 'H';
-//										case '1':
-//											return 'Water';
-//										case '2':
-//											return 'C';
-//									}
-//								}
+								//								formatter: function(v) {
+								//									switch(v + '') {
+								//										case '0':
+								//											return 'H';
+								//										case '1':
+								//											return 'Water';
+								//										case '2':
+								//											return 'C';
+								//									}
+								//								}
 							},
 							splitLine: { // 分隔线
 								length: 15, // 属性length控制线长
@@ -1531,6 +1763,7 @@
 						}
 					]
 				});
+
 			},
 			//跳转历史轨迹
 			loadgps() {
@@ -1634,6 +1867,9 @@
 		},
 		mounted() {
 			this.getUsers();
+			window.addEventListener('resize', () => {
+				this.main.resize();
+			})
 		},
 		beforeRouteLeave(to, from, next) {
 			next()
@@ -1644,11 +1880,14 @@
 	}
 </script>
 
-<style stoped>
+<style>
 	li {
 		list-style: none;
 	}
-	
+	ul{
+		padding: 0;
+		margin: 0;
+	}
 	.userlistwrap {
 		height: 100%;
 		width: 240px;
@@ -1825,13 +2064,16 @@
 		padding: 5px;
 		padding-top: 0;
 	}
-	.detailwrap{
-		width: 80%;
+	
+	.detailwrap {
+		width: 95%;
 		height: 10%;
 		padding-left: 5%;
 		overflow: hidden;
 	}
-	.detailname,.detailinfo{
+	
+	.detailname,
+	.detailinfo {
 		display: inline-block;
 		width: 40%;
 		height: 100%;
@@ -1849,10 +2091,97 @@
 		justify-content: center;
 		float: left;
 	}
-	.detailinfo{
-		vertical-align:top;
+	.detailinfo {
+		vertical-align: top;
 		width: 55%;
 		color: #246dce;
 		margin-left: 10px;
+	}
+	.detailname1{
+		width: 55%;
+	}
+	.detailinfo1{
+		width: 40%;
+	} 
+	.states1,.states{
+		width: 90px;
+		height: 90px;
+		text-align: center;
+		font-weight: bold;
+		color: #666;
+		margin-top: 10px;
+	}
+	.iconfontwrap{
+		width: 25%;
+		height: 96%;
+		border: 1px solid #e4e4e4;
+		float: left;
+		margin: 10px;
+		border-radius: 10px; 
+		overflow: hidden;
+	}
+	.iconfontwrapa{
+		height: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content:space-around;
+		overflow: auto;
+	}
+	.contitle{
+		padding: 0;
+		margin: 0;
+		text-align: center;
+		padding-top: 8px;
+		font-weight: bold;
+	}
+	.signalwrap{
+		width: 95%;
+		height: 90%;
+		margin: 1% auto;
+		border: 1px solid #e4e4e4;
+		border-radius: 10px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.windowrowa{
+		width: 72%;
+		height: 100%;
+		text-align: center;
+		background: #E4E7ED;
+		border-radius: 8px;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-align-items: center;
+		align-items: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+	}
+	.windowrowb{
+		width: 20%;
+		margin-left: 8px;
+		height: 100%;
+		border-radius: 8px;
+		text-align: center;
+		background: #E4E7ED;
+		color: red;
+		vertical-align: middle;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-align-items: center;
+		align-items: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+	}
+	.windowline{
+		width: 18%;
+		height: 14%;
+		line-height: 30px;
+		color: #666;
+		font-weight: bold;
+		padding: 5px;
+		display: inline-block;
+		display: flex;
+		flex-wrap: wrap;
 	}
 </style>
