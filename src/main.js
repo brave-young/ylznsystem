@@ -25,6 +25,7 @@ router.beforeEach((to, from, next) => {
 })
 //设置全局域名
 Vue.prototype.base = 'http://www.jp.zjylzn.com:8080'
+//Vue.prototype.base = 'http://47.106.11.106:8080'
 //Vue.prototype.base = 'http://221.225.83.213:8080'
 //elelment ui
 import ElementUI from 'element-ui'

@@ -39,7 +39,7 @@
 									<el-button size="mini" @click="unbind(index)" :disabled='open'>解除绑定</el-button>
 									<el-button size='mini' @click='handlemain(index)' :disabled='open'>实时数据</el-button>
 								</p>
-
+                                  
 							</li>
 						</ul>
 					</div>

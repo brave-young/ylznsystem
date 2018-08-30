@@ -13,40 +13,41 @@
 			</div>
 			<div class="userlista">
 				<div class='carlistinfoa'>
-					<el-form :model="addForm" :rules="addFormRules" ref="addForm" style='margin-left: 10px;margin-top: 20px;'size='small'>
-				<el-form-item  prop="tid">
-					<el-input v-model="addForm.tid" auto-complete="off" style='width: 200px;'></el-input>
-				</el-form-item>
-				<el-form-item  prop="id">
-					<el-input v-model="addForm.id" style='width: 200px;'></el-input>
-				</el-form-item>
-				<el-form-item>
-						<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
-					</el-form-item>
-				
-			</el-form>
+					<p style="color: #E4E4E4;font-size: 16px;font-weight: bold;text-align: center;">新增车辆</p>
+					<el-form :model="addForm" :rules="addFormRules" ref="addForm" style='margin-left: 10px;margin-top: 20px;' size='small'>
+						<el-form-item prop="tid">
+							<el-input placeholder="终端ID" v-model="addForm.tid" auto-complete="off" style='width: 200px;'></el-input>
+						</el-form-item>
+						<el-form-item prop="id">
+							<el-input placeholder="车架号" v-model="addForm.id" style='width: 200px;'></el-input>
+						</el-form-item>
+						<el-form-item>
+							<el-button style='margin-left: 140px;' type="primary" @click.native="addSubmit" >添加</el-button>
+						</el-form-item>
+
+					</el-form>
 				</div>
 			</div>
 		</div>
 		<div class="carinfowrapa">
 			<div class="carlistwrap">
 				<el-table size='small' :data="cars" highlight-current-row class='el-table-owner ' height='90%' style='background-color: #34465a;' :header-row-style=aa>
-				<el-table-column prop="id" label="车架号" width="300" align='center'>
-				</el-table-column>
-				<el-table-column prop="uid" label="用户ID" min-width="350" align='center'>
-				</el-table-column>
-				</el-table-column>
-				<el-table-column prop="status" label="是否被绑定" width="300" :formatter='st' align='center'>
-				</el-table-column>
-				<el-table-column prop="createTime" label="添加时间" width="300" align='center'>
-				</el-table-column>
-			</el-table>
-			<el-col :span="24" class="toolbar toolbara" style='margin-top: 30px;'>
-				<el-pagination layout="prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="16" :total="total" style="float:right;">
-				</el-pagination>
-			</el-col>
+					<el-table-column prop="id" label="车架号" width="300" align='center'>
+					</el-table-column>
+					<el-table-column prop="uid" label="用户ID" min-width="350" align='center'>
+					</el-table-column>
+					</el-table-column>
+					<el-table-column prop="status" label="是否被绑定" width="300" :formatter='st' align='center'>
+					</el-table-column>
+					<el-table-column prop="createTime" label="添加时间" width="300" align='center'>
+					</el-table-column>
+				</el-table>
+				<el-col :span="24" class="toolbar toolbara" style='margin-top: 30px;'>
+					<el-pagination layout="prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="16" :total="total" style="float:right;">
+					</el-pagination>
+				</el-col>
 			</div>
-			
+
 		</div>
 	</section>
 </template>
@@ -61,8 +62,8 @@
 				cars: [],
 				total: 0,
 				page: 1,
-				aa:{
-					height:'70px'
+				aa: {
+					height: '70px'
 				},
 				addFormRules: {
 					tid: [{
@@ -276,6 +277,7 @@
 		/*background: url(../../static/bg1.png) no-repeat;
 		background-size: 100% 100%;*/
 	}
+	
 	.carlistinfoa {
 		background: url(../../static/bg1.png) no-repeat;
 		background-size: 100% 100%;
@@ -283,14 +285,15 @@
 		min-height: 680px;
 		overflow: hidden;
 	}
-	.carlistwrap{
+	
+	.carlistwrap {
 		width: 97%;
 		height: 96%;
 		margin: 2% auto;
 	}
-	.toolbara{
+	
+	.toolbara {
 		background-color: #4b5a6b;
 		border-radius: 2px;
-		
 	}
 </style>
