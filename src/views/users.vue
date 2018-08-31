@@ -1195,9 +1195,9 @@
 					this.handleMap(index);
 					this.drawInstrument()
 				}, 100);
-				//				this.interval = setInterval(() => {
-				//					this.request();
-				//				}, 10000);
+								this.interval = setInterval(() => {
+									this.request();
+								}, 10000);
 				//获取定位
 
 				//绘制折线图
