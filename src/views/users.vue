@@ -1,7 +1,7 @@
 <template>
 	<section class="full">
 		<div class="userlistwrap">
-			<div class="toolbar">
+			<div class="toolbar">              
 				<el-form :inline="true" :model="filters" size='small'>
 					<el-form-item>
 						<el-input v-model="filters.phone" placeholder="请输入用户名" style='width: 150px;'></el-input>
@@ -22,7 +22,7 @@
 					</el-table-column>
 				</el-table>
 				<div class="">
-					<el-pagination layout="prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="11" :total="total" style="width: 200px;color: #eee;margin-top: 20px;">
+					<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="11" :total="total" style="width: 200px;color: #eee;margin-top: 20px;margin-left:30px">
 					</el-pagination>
 				</div>
 			</div>
