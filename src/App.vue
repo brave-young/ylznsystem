@@ -138,4 +138,12 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 	height: 86%;
 	padding: 0;
 }
+.el-pagination .btn-next, .el-pagination .btn-prev,.el-pagination button:disabled{
+	background-color:#00000000;
+	color:#fff
+}
+.el-pager li{
+	background-color:#00000000 ;
+	color:#fff
+}
 </style>
